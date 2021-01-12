@@ -4,9 +4,9 @@
 
  Author  : Kouji Nakashima / kuc-arc-f.com
 
- date    : 2021/01/12
+ date    : 2021/01/11
 
- update  :
+ update  : 2021/01/12
 
 ***
 ### Summary
@@ -36,6 +36,7 @@ yarn deploy
 ***
 ### Blog :
 
+https://note.com/knaka0209/n/n62e0cbc722e7
 
 ***
 
