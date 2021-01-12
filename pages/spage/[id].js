@@ -52,6 +52,9 @@ console.log(item )
     return (
     <Layout>
       <div className="container">
+        <Link href="/" >
+          <a className="btn btn-outline-primary mt-2">Back</a>
+        </Link>        
         <div className="show_head_wrap mt-2">
             <i className="fas fa-home"></i> >
             {this.state.title}

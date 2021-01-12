@@ -11,8 +11,9 @@ export default {
     },    
     get_page_start:function(page){
         var start_num = (page -1) * this.per_page;
+        var end = page * this.per_page;
         var ret ={
-            start: start_num,  limit: this.per_page,
+            start: start_num,  end: end,
         }        
 //        console.log("per_page:",this.per_page)
         return ret;
@@ -27,7 +28,6 @@ export default {
         if(num >= 1){
             ret = 1
         }
-        //ret = parseInt( num );
         return ret;
     },
     get_page_items(data){
@@ -40,5 +40,15 @@ export default {
              "page_item": page_item,            
         };
         return  param;       
-    }    
+    },
+    getOnepageItems : function(items, start , end){
+        var ret = []
+        items.forEach(function(item, index){
+            if((index >= start) && (index < end )){
+                ret.push(item)
+            }
+    //            console.log( item )
+        });
+        return ret
+    }   
 }

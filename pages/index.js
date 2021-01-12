@@ -2,6 +2,7 @@ import React from 'react'
 
 import Layout from '../components/layout'
 import LibCommon from '../libs/LibCommon'
+import LibPagenate from '../libs/LibPagenate'
 import TopHeadBox from '../components/TopHeadBox'
 import IndexRow from './IndexRow';
 import PagesRow from './PagesRow';
@@ -10,20 +11,35 @@ export default class Page extends React.Component {
   constructor(props){
     super(props)
 //    this.state = {items: '', items_org: ''}
-    this.state = {items: '', page_items: ''}
+    this.state = {items: '', page_items: '', pagenate_display: 0,}
+    this.page = 1
+    this.handleClickPagenate = this.handleClickPagenate.bind(this);
+    this.handleClickPagenateP1 = this.handleClickPagenateP1.bind(this);
 //console.log(this.props.data )
   }
   async componentDidMount(){
-    var dt = LibCommon.formatDate( new Date(), "YYYY-MM-DD_hhmmss");
-    var url = '/cms.json?' + dt
-console.log(url )
-    const req = await fetch( url );
-    const data = await req.json(); 
-    var items =  LibCommon.get_reverse_items(data.items)
-//console.log(data )
-    this.setState({
-      items: items ,page_items: data.page_items 
-    })   
+    this.get_items()
+  }
+  async get_items(){
+    try{
+      var dt = LibCommon.formatDate( new Date(), "YYYY-MM-DD_hhmmss");
+      var url = '/cms.json?' + dt
+  console.log(url )
+      const req = await fetch( url );
+      const data = await req.json(); 
+      var items =  LibCommon.get_reverse_items(data.items)
+      LibPagenate.init()
+      var page_info =  LibPagenate.get_page_start(this.page)
+      var is_paginate = LibPagenate.is_paging_display(items.length)
+      items = LibPagenate.getOnepageItems(items, page_info.start , page_info.end)
+//console.log(items )
+      this.setState({
+        items: items ,page_items: data.page_items ,
+        pagenate_display: is_paginate
+      })
+    } catch (err) {
+        console.log(err);
+    }    
   } 
   pageRow(){
     return this.state.page_items.map(function(item, i){
@@ -59,7 +75,33 @@ console.log(url )
         )
       })      
     }
-  } 
+  }
+  handleClickPagenateP1(){
+    this.page = 1
+    this.get_items()
+  }
+  handleClickPagenate(){
+    var page = this.page
+    this.page = page + 1
+console.log( "page=", this.page )
+    this.get_items()
+  }
+  dispPagenate(){
+    if(this.state.pagenate_display ===1){
+      return(
+      <div className="paginate_wrap">
+        <div className="btn-group" role="group" aria-label="Basic example">
+          <button onClick={this.handleClickPagenateP1} className="btn btn-lg btn-outline-primary">
+              1st
+          </button>
+          <button onClick={this.handleClickPagenate} className="btn btn-lg btn-outline-primary">
+              >
+          </button>
+        </div>
+      </div>
+      )
+    }
+}   
   render() {
 //console.log( this.state.page_items)
     return (
@@ -78,6 +120,7 @@ console.log(url )
                 </div>
               </div>
               {this.tabRow()}
+              {this.dispPagenate()}
             </div>
           </div>          
         </div>
