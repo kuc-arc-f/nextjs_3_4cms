@@ -18,8 +18,9 @@ export default class Page extends React.Component {
 console.log(url )
     const req = await fetch( url );
     const data = await req.json(); 
-//console.log(data )
-    this.setState({ items: data.items })   
+    var items =  LibCommon.get_reverse_items(data.items)
+// console.log(items )
+    this.setState({ items: items })   
   } 
   tabRow(){
     const items = this.state.items

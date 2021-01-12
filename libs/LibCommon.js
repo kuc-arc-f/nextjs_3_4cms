@@ -51,7 +51,6 @@ export default {
         });        
         return data
     },    
-
     get_reverse_items: function(items){
 		var data =[]
 		var self = this

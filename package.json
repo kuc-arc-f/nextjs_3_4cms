@@ -10,7 +10,6 @@
     "deploy": "npm run build && npm run export"
   },
   "dependencies": {
-    "dexie": "^3.0.3",
     "marked": "^1.2.7",
     "next": "^10.0.0",
     "react": "16.13.1",
