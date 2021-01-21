@@ -1,12 +1,12 @@
 ﻿# nextjs_3_4cms
 
- Version: 0.9.1
+ Version: 0.9.2
 
  Author  : Kouji Nakashima / kuc-arc-f.com
 
  date    : 2021/01/11
 
- update  : 2021/01/12
+ update  : 2021/01/21
 
 ***
 ### Summary
